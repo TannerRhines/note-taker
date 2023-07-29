@@ -36,13 +36,17 @@ function createNewNote(body, notesArray) {
         );
         return newNote;
 }
-    
+
+
+
 app.post('/api/notes', (req, res) => {
     const newNote = createNewNote(req.body, allNotes);
     res.json(newNote);
 });
 
 
+
+// deletes a note fron db.json 
 function deleteNote(id, notesArray) {
     for (let i = 0; i < notesArray.length; i++) {
         let note = notesArray[i];
@@ -59,14 +63,17 @@ function deleteNote(id, notesArray) {
         }
 }
 
-
-
-
-        
+    
 app.delete('/api/notes/:id', (req, res) => {
     deleteNote(req.params.id, allNotes);
     res.json(true);
 });
+
+
+
+
+
+// here are the main routes needed to run the app 
 
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
@@ -80,6 +87,8 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
+
+// listening on the provided port 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
